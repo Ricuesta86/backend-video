@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const { VideoControl } = require('./modelos/video');
-
+const videoControl = new VideoControl();
 
 
 // parse application/x-www-form-urlencoded
@@ -16,11 +16,10 @@ app.use(express.json());
 
 
 app.get('/video/:id', (req, res) => {
-    res.json(datos);
+    res.json(videoControl.getVideos());
 });
 
 app.get('/video', (req, res) => {
-    const videoControl = new VideoControl();
     res.json({
         mensaje: 'get video'
     });

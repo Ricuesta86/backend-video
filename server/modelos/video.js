@@ -1,23 +1,32 @@
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
-const datos =
+const datos = require('../store/data.json');
 
-    class Video {
-        constructor(id, nombre) {
-            this.id = uuidv4();
-            this.nombre = nombre;
-            this.descripcion = '';
-        }
+class Video {
+    constructor(id, nombre) {
+        this.id = uuidv4();
+        this.nombre = nombre;
+        this.descripcion = '';
     }
+}
+
 class VideoControl {
     constructor() {
-        this.videos = require('../store/data.json');
-        console.log(videos);
+        this.videos = [];
+        this.videos = datos;
+
+        console.log(this.videos);
     }
-    addVideo(datos) {
+    addVideo(video) {
 
     }
-
+    getVideo(id) {
+        let video = this.videos.filter(video => video.id === id)
+        return video;
+    }
+    getVideos() {
+        return this.videos;
+    }
     grabarArchivo() {
         let jsonData = {
             videos: videos
@@ -30,5 +39,6 @@ class VideoControl {
 }
 
 module.exports = {
-
+    VideoControl,
+    Video
 };
