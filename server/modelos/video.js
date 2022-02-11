@@ -1,23 +1,34 @@
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
-const datos = require('../store/data.json');
+const { json } = require('express/lib/response');
 
-class Video {
-    constructor(id, nombre) {
+
+/* class Video {
+    constructor(nombre, descripcion) {
         this.id = uuidv4();
         this.nombre = nombre;
-        this.descripcion = '';
+        this.descripcion = descripcion;
     }
-}
+} */
 
 class VideoControl {
     constructor() {
-        this.videos = [];
-        this.videos = datos;
+        const datos = require('../store/data.json');
+        console.log(datos);
+        this.videos = JSON.parse(datos);
+        //this.videos = datos;
 
-        console.log(this.videos);
+
     }
-    addVideo(video) {
+    addVideo(nombre, descripcion) {
+        let video = {
+            id: uuidv4(),
+            nombre,
+            descripcion
+        }
+        this.videos.push(video);
+        this.grabarArchivo();
+        return video;
 
     }
     getVideo(id) {
@@ -29,16 +40,16 @@ class VideoControl {
     }
     grabarArchivo() {
         let jsonData = {
-            videos: videos
+            videos: this.videos
         };
 
         let jsonDataString = JSON.stringify(jsonData);
 
-        fs.writeFileSync('./server/data/data.json', jsonDataString);
+        fs.writeFileSync('./server/store/data.json', jsonDataString);
     }
 }
 
 module.exports = {
-    VideoControl,
-    Video
+    VideoControl
+
 };
