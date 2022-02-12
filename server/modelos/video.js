@@ -14,11 +14,9 @@ const { json } = require('express/lib/response');
 class VideoControl {
     constructor() {
         const datos = require('../store/data.json');
-        console.log(datos);
-        this.videos = JSON.parse(datos);
+        console.log(datos.videos);
+        this.videos = datos.videos;
         //this.videos = datos;
-
-
     }
     addVideo(nombre, descripcion) {
         let video = {

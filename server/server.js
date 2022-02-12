@@ -16,12 +16,14 @@ app.use(express.json());
 
 
 app.get('/video/:id', (req, res) => {
-    res.json(videoControl.getVideos());
+    const id = req.params.id;
+    res.json({ ok: true, mensaje: videoControl.getVideo(id) });
 });
 
 app.get('/video', (req, res) => {
     res.json({
-        mensaje: 'get video'
+        ok: true,
+        mensaje: videoControl.getVideos()
     });
 });
 
@@ -37,6 +39,7 @@ app.post('/video', (req, res) => {
     } else {
         let dato = videoControl.addVideo(body.nombre, body.descripcion);
         res.json({
+            ok: true,
             mensaje: dato
         });
     }
