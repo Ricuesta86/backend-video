@@ -29,8 +29,6 @@ app.get('/video', (req, res) => {
 
 app.post('/video', (req, res) => {
     const body = req.body;
-
-
     if (body.nombre === undefined) {
         res.status(400).json({
             ok: false,
@@ -47,9 +45,27 @@ app.post('/video', (req, res) => {
 });
 
 app.put('/video/:id', (req, res) => {
-    res.json({
-        mensaje: 'put video'
-    });
+    let id = req.params.id;
+    let body = req.body
+    if (body.nombre === undefined && body.descripcion === undefined) {
+        res.status(400).json({
+            ok: false,
+            mensaje: 'El nombre o la descripcion es nesesario'
+        });
+    } else {
+        let dato = videoControl.updateVideo(id, body.nombre, body.descripcion);
+        if (dato == -1) {
+            res.status(400).json({
+                ok: false,
+                mensaje: 'ID no encontrado'
+            });
+        } else {
+            res.json({
+                ok: true,
+                mensaje: dato
+            });
+        }
+    }
 });
 
 app.put('/upload/:id', (req, res) => {

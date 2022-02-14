@@ -36,6 +36,21 @@ class VideoControl {
     getVideos() {
         return this.videos;
     }
+    updateVideo(id, nombre, descripcion) {
+        let video = -1;
+        for (let i = 0; i < this.videos.length; i++) {
+            if (this.videos[i].id === id) {
+                if (nombre != undefined && nombre != '') {
+                    this.videos[i].nombre = nombre;
+                }
+                if (descripcion != '' || !descripcion != undefined) {
+                    this.videos[i].descripcion = descripcion;
+                }
+                video = this.videos[i];
+            }
+        }
+        return video;
+    }
     grabarArchivo() {
         let jsonData = {
             videos: this.videos
