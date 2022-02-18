@@ -75,9 +75,20 @@ app.put('/upload/:id', (req, res) => {
 });
 
 app.delete('/video/:id', (req, res) => {
-    res.json({
-        mensaje: 'delete video'
-    });
+    let id = req.params.id;
+    let datos = videoControl.deleteVideo(id);
+    if (datos == -1) {
+        res.status(400).json({
+            ok: false,
+            mensaje: 'El ID no fue encontrado'
+        })
+    } else {
+        res.json({
+            ok: true,
+            mensaje: 'Se elimino el video con exito'
+        });
+    }
+
 });
 
 app.listen(3000, () => {

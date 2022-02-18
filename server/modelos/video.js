@@ -47,9 +47,13 @@ class VideoControl {
                     this.videos[i].descripcion = descripcion;
                 }
                 video = this.videos[i];
+                this.grabarArchivo();
             }
         }
         return video;
+    }
+    deleteVideo(id) {
+
     }
     grabarArchivo() {
         let jsonData = {
